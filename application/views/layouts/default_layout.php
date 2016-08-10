@@ -76,7 +76,7 @@
 			</div>
 			<br /><br />
 			<div class="section">
-				<?= $this->load->view($content); ?>
+				<?php $this->load->view($content); ?>
 			</div>
 		</div>
 		
