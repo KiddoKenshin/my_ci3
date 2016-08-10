@@ -73,15 +73,6 @@ class Core_Controller extends CI_Controller {
 			$viewParams['debug'] = $this->_dumpData;
 		}
 		
-		
-		// Select layout
-		/*
-		$ua = $_SERVER['HTTP_USER_AGENT'];
-		if (strpos($ua, 'iPhone') !== FALSE || (strpos($ua, 'Android') !== FALSE && strpos($ua, 'Mobile') !== FALSE)) {
-			$layout = 'sp_layout';
-		}
-		//*/
-		
 		// Uses Responsive design
 		$layoutToUse = 'layouts/' . $layout; 
 		if (@isset($_GET['plain']) && @$_GET['plain'] == 1) {

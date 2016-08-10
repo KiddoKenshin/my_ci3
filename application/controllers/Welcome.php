@@ -18,10 +18,9 @@ class Welcome extends Core_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
+	public function index()	{
 		$memcacheDriver = $this->cacheDriver();
-		var_dump($memcacheDriver->is_supported());
-		$this->load->view('welcome_message');
+		$this->collectDump($memcacheDriver->is_supported());
+		$this->render('welcome_message');
 	}
 }
