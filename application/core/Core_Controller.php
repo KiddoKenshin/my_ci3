@@ -40,7 +40,7 @@ class Core_Controller extends CI_Controller {
 		}
 		ob_start();
 		var_dump($mixed);
-		$this->_dumpData += ob_get_clean();
+		$this->_dumpData .= ob_get_clean();
 	}
 	
 	/**
