@@ -1,3 +1,15 @@
+#########################
+Regarding this repository
+#########################
+
+This is a personal branch that manage Personal CI3 template.
+It is managed for PHP7, MariaDB, MaterializeCSS, Memcached.
+DB access separated to Reader and Writer.
+It's a ongoing Work In Progress porting from old CI2 code.
+
+Feel free to use it.
+
+
 ###################
 What is CodeIgniter
 ###################
