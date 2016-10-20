@@ -114,6 +114,26 @@ class Core_Controller extends CI_Controller {
 		return $driver;
 	}
 	
+	protected function _isLogged() {
+		static $ret;
+		if (is_null($ret)) {
+			$ret = FALSE;
+			
+			// Read from Cookie + Cached
+			$credential = @$_COOKIE['USER_CREDENTIAL']; // MD5 Encoded Credential(UniqueID)
+			if (!is_null($credential)) {
+				// Credential Available
+				// Proceed to Cached Verification
+				$cacheKey = $credential . '_crendential_check';
+				$memcached = $this->cacheDriver();
+				$userData = $memcached->get($cacheKey);
+				if ($userData !== FALSE) {
+					$ret = TRUE;
+				}
+			}
+		}
+		return $ret;
+	}
 }
 
 

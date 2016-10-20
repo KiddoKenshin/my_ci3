@@ -11,7 +11,7 @@ if (!defined('BASEPATH')) {
  * @author S.LEE
  * @since 2013/08/15
  */
-class Core_Model extends CI_Mapper {
+class Core_Model extends CI_Model {
 	
 	/**
 	 * Simple lecture on function's behaviour.
@@ -36,20 +36,6 @@ class Core_Model extends CI_Mapper {
 	}
 	
 	/**
-	 * Returns Database Reader.
-	 * 
-	 * @return CI_DB_mysql_driver
-	 */
-	public function getDBReader() {
-		static $reader;
-		// Initialize only once.
-		if (is_null($reader)) {
-			$reader = $this->load->database('default', TRUE);
-		}
-		return $reader;
-	}
-	
-	/**
 	 * Returns Database Writer.
 	 * 
 	 * @return CI_DB_mysql_driver
@@ -66,7 +52,7 @@ class Core_Model extends CI_Mapper {
 	/**
 	 * Parent Override.
 	 */
-	public function save($object = '', $related_field = '') {
+	public function insert($table = '', $set = NULL, $escape = NULL) {
 		// Store Previous DB Access (Read only)
 		$this->ori_db = $this->db;
 		
@@ -74,7 +60,7 @@ class Core_Model extends CI_Mapper {
 		$this->db = $this->getDBWriter();
 		
 		// Call parent function.
-		parent::save($object, $related_field);
+		parent::insert($table, $set, $escape);
 		
 		// Close DB Writer and Replace it with the previous DB Access (Read Only)
 		// $this->db->close(); // Do not close connection 2013/09/02 (For Resource Reusability)
@@ -84,7 +70,7 @@ class Core_Model extends CI_Mapper {
 	/**
 	 * Parent Override.
 	 */
-	public function update($field, $value = NULL, $escape_values = TRUE) {
+	public function update($table = '', $set = NULL, $where = NULL, $limit = NULL) {
 		// Store Previous DB Access (Read only)
 		$this->ori_db = $this->db;
 		
@@ -92,20 +78,11 @@ class Core_Model extends CI_Mapper {
 		$this->db = $this->getDBWriter();
 		
 		// Call parent function.
-		parent::update($field, $value, $escape_values);
+		parent::update($table, $set, $where, $limit);
 		
 		// Close DB Writer and Replace it with the previous DB Access (Read Only)
 		// $this->db->close(); // Do not close connection 2013/09/02 (For Resource Reusability)
 		$this->db = $this->ori_db;
-	}
-	
-	/**
-	 * Returns Database Root Access.
-	 */
-	public function getRootAccess() {
-		// Disabled.
-		throw new Exception('Root Access is Disabled.');
-		
 	}
 	
 }
