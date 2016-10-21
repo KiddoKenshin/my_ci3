@@ -22,11 +22,6 @@ class Core_Model extends CI_Model {
 	 */
 	
 	/**
-	 * Stores CI_DB_mysql_driver
-	 */
-	public $ori_db;
-	
-	/**
 	 * Just another constructor.
 	 * 
 	 * @return void
@@ -53,36 +48,15 @@ class Core_Model extends CI_Model {
 	 * Parent Override.
 	 */
 	public function insert($table = '', $set = NULL, $escape = NULL) {
-		// Store Previous DB Access (Read only)
-		$this->ori_db = $this->db;
-		
-		// Enable Write Mode. (Use DB Writer)
-		$this->db = $this->getDBWriter();
-		
-		// Call parent function.
-		parent::insert($table, $set, $escape);
-		
-		// Close DB Writer and Replace it with the previous DB Access (Read Only)
-		// $this->db->close(); // Do not close connection 2013/09/02 (For Resource Reusability)
-		$this->db = $this->ori_db;
+		$this->getDBWriter()->insert($table, $set, $escape);
+		return $this->getDBWriter()->insert_id();
 	}
 	
 	/**
 	 * Parent Override.
 	 */
 	public function update($table = '', $set = NULL, $where = NULL, $limit = NULL) {
-		// Store Previous DB Access (Read only)
-		$this->ori_db = $this->db;
-		
-		// Enable Write Mode. (Use DB Writer)
-		$this->db = $this->getDBWriter();
-		
-		// Call parent function.
-		parent::update($table, $set, $where, $limit);
-		
-		// Close DB Writer and Replace it with the previous DB Access (Read Only)
-		// $this->db->close(); // Do not close connection 2013/09/02 (For Resource Reusability)
-		$this->db = $this->ori_db;
+		$this->getDBWriter()->update($table, $set, $where, $limit);
 	}
 	
 }
