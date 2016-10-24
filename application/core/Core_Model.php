@@ -45,7 +45,9 @@ class Core_Model extends CI_Model {
 	}
 	
 	/**
-	 * Parent Override.
+	 * Utility Override.
+	 * 
+	 * @return integer (Successful inserted record ID)
 	 */
 	public function insert($table = '', $set = NULL, $escape = NULL) {
 		$this->getDBWriter()->insert($table, $set, $escape);
@@ -53,10 +55,12 @@ class Core_Model extends CI_Model {
 	}
 	
 	/**
-	 * Parent Override.
+	 * Utility Override.
+	 * 
+	 * @return boolean
 	 */
 	public function update($table = '', $set = NULL, $where = NULL, $limit = NULL) {
-		$this->getDBWriter()->update($table, $set, $where, $limit);
+		return $this->getDBWriter()->update($table, $set, $where, $limit);
 	}
 	
 }
