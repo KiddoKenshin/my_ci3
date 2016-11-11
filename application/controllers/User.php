@@ -1,9 +1,30 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Register extends Core_Controller {
+class User extends Core_Controller {
 	
-	public function index()	{
+	public function login()	{
+		// If logged in, redirect to homepage
+		if ($this->_isLogged()) {
+			$this->load->helper('url');
+			redirect('/', 'refresh');
+		}
+		
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			return;
+			$cookieHash = md5($id . '_' . $_SERVER['HTTP_USER_AGENT']);
+			setcookie('USER_CREDENTIAL', $cookieHash, time() + (60 * 60 * 24), '/'); // 1Day
+			
+			$memcached = $this->cacheDriver();
+			$cacheKey = $cookieHash . '_crendential_check';
+			$result = $memcached->save($cacheKey, '', 60 * 60 * 24);
+			
+			$this->load->helper('url');
+			redirect('/', 'refresh'); // TODO: Load last visit page
+		}
+	}
+	
+	public function register()	{
 		// If logged in, redirect to homepage
 		if ($this->_isLogged()) {
 			$this->load->helper('url');
@@ -56,4 +77,23 @@ class Register extends Core_Controller {
 		exit;
 	}
 	
+	public function validate() {
+		
+	}
+	
+	public function forgetpassword() {
+		
+	}
+	
+	public function index() {
+		// Goto Mypage
+	}
+	
+	public function mypage() {
+		
+	}
+	
+	public function history() {
+		
+	}
 }
